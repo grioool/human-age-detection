@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation &mdash; Project: Human Age Detection  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Project: Human Age Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Documentation</a></li>
+<li><a class="reference internal" href="#i-exploratory-data-analysis">I. Exploratory Data Analysis</a><ul>
+<li><a class="reference internal" href="#data-structure">Data Structure</a></li>
+<li><a class="reference internal" href="#most-important-first-steps-preparation-for-eda">Most important first steps - preparation for EDA</a></li>
+<li><a class="reference internal" href="#imports">1. Imports</a></li>
+<li><a class="reference internal" href="#setting-up-data-path">2. Setting up Data Path</a></li>
+<li><a class="reference internal" href="#reading-csv-file">3. Reading CSV File</a></li>
+<li><a class="reference internal" href="#loading-csv-file-into-dataframe">4. Loading CSV File into DataFrame</a></li>
+<li><a class="reference internal" href="#general-overview-of-code-cells"><strong>General overview of Code Cells</strong></a></li>
+<li><a class="reference internal" href="#preliminary-analysis">Preliminary Analysis</a></li>
+<li><a class="reference internal" href="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+<li><a class="reference internal" href="#image-analysis">Image Analysis</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ii-face-detection">II. Face Detection</a><ul>
+<li><a class="reference internal" href="#id1">1. Imports</a></li>
+<li><a class="reference internal" href="#function">2. Function</a></li>
+<li><a class="reference internal" href="#parameters">Parameters:</a></li>
+<li><a class="reference internal" href="#returns">Returns:</a></li>
+<li><a class="reference internal" href="#project-github">Project GitHub</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Project: Human Age Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/EDA_FD_documentation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h1>
+<p>This document contains documentation for the Jupyter notebook <strong>exploratory_data_analytic.ipnyb</strong> and the Python file <strong>face_detection.py</strong>.</p>
+</section>
+<section id="i-exploratory-data-analysis">
+<h1>I. Exploratory Data Analysis<a class="headerlink" href="#i-exploratory-data-analysis" title="Link to this heading"></a></h1>
+<p>The notebook is designed to analyze and derive insights from ‘metadata.csv’ file and ultimately on analyzing the basic statistics of several .jpg images.</p>
+<section id="data-structure">
+<h2>Data Structure<a class="headerlink" href="#data-structure" title="Link to this heading"></a></h2>
+<p>The data for model training should be placed in the <cite>/train/data</cite> directory, also referred to as <cite>DATA_DIR</cite> in <cite>consts.py</cite>. The structure of the data directory is as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── data
+│   ├── imdb_crop
+│   │   ├── **
+│   │   │  ├── **.jpg
+│   │   ├── imdb.mat
+│   ├── wiki_crop
+│   │   ├── **
+│   │   │  ├── **.jpg
+│   │   ├── wiki.mat
+</pre></div>
+</div>
+<p>Source:</p>
+<ol class="arabic simple">
+<li><p>imdb_crop: <a class="reference external" href="https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_crop.tar">https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_crop.tar</a></p></li>
+<li><p>wiki_crop: <a class="reference external" href="https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/wiki_crop.tar">https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/wiki_crop.tar</a></p></li>
+</ol>
+<p>To use this notebook:</p>
+<ol class="arabic simple">
+<li><p>Ensure that the data is structured as mentioned in the “Data Structure” section.</p></li>
+<li><p>Run each cell in the notebook sequentially to perform exploratory data analysis.</p></li>
+</ol>
+</section>
+<section id="most-important-first-steps-preparation-for-eda">
+<h2>Most important first steps - preparation for EDA<a class="headerlink" href="#most-important-first-steps-preparation-for-eda" title="Link to this heading"></a></h2>
+</section>
+<section id="imports">
+<h2>1. Imports<a class="headerlink" href="#imports" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+</pre></div>
+</div>
+<p>This cell imports various libraries necessary for data analysis and visualization. Key libraries include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code> for data manipulation,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> for data visualization,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> and <code class="docutils literal notranslate"><span class="pre">scipy</span></code> for statistical analysis,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PIL</span></code> for image processing,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tabulate</span></code> for presenting tabular data.</p></li>
+</ul>
+</section>
+<section id="setting-up-data-path">
+<h2>2. Setting up Data Path<a class="headerlink" href="#setting-up-data-path" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_metadatacsv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="s1">&#39;../data/metadata.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path_to_metadatacsv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This cell calculates the real path of the ‘metadata.csv’ file, which is presumably the main dataset for analysis. The resolved path is printed for verification.</p>
+</section>
+<section id="reading-csv-file">
+<h2>3. Reading CSV File<a class="headerlink" href="#reading-csv-file" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_metadatacsv</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">read_metadatacsv</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">read_metadatacsv</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">read_metadatacsv</span><span class="p">:</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Column names:&quot;</span><span class="p">,</span> <span class="n">column_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The first few sample rows:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this cell, the notebook:</p>
+<ul class="simple">
+<li><p>Opens and reads the CSV file specified in the previous cell.</p></li>
+<li><p>Extracts and prints the column names of the dataset.</p></li>
+<li><p>Reads the first few rows of the dataset for a preliminary overview.</p></li>
+</ul>
+</section>
+<section id="loading-csv-file-into-dataframe">
+<h2>4. Loading CSV File into DataFrame<a class="headerlink" href="#loading-csv-file-into-dataframe" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_to_metadatacsv</span><span class="p">)</span>
+<span class="n">df_metadata</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This cell loads the CSV file (referenced by <cite>path_to_metadatacsv</cite>) into a Pandas DataFrame named <cite>df_metadata</cite>. It then displays the first few rows of the DataFrame using the <cite>head()</cite> method. This is a common practice in data analysis to get a quick glimpse of the dataset structure and contents.</p>
+</section>
+<section id="general-overview-of-code-cells">
+<h2><strong>General overview of Code Cells</strong><a class="headerlink" href="#general-overview-of-code-cells" title="Link to this heading"></a></h2>
+<p>The notebook includes various code cells for tasks such as data loading, cleaning, analysis, and visualization. Key code cells include:</p>
+<ol class="arabic simple">
+<li><p><strong>Imports</strong> - explained above</p></li>
+<li><p><strong>Data Path Setup</strong> - explained above</p></li>
+<li><p><strong>Data Loading</strong> - explained above</p></li>
+<li><p><strong>Preliminary Analysis</strong></p></li>
+<li><p><strong>Exploratory Data Analysis</strong></p></li>
+<li><p><strong>Image Analysis</strong></p></li>
+</ol>
+</section>
+<section id="preliminary-analysis">
+<h2>Preliminary Analysis<a class="headerlink" href="#preliminary-analysis" title="Link to this heading"></a></h2>
+<p>The notebook provides analysis for subsequent data cleansing approaches, including:</p>
+<ul class="simple">
+<li><p>Collection size analysis.</p></li>
+<li><p>Checking whether NaN values are present.</p></li>
+<li><p>Analysis of outliers, including values impossible in biology.</p></li>
+</ul>
+</section>
+<section id="exploratory-data-analysis">
+<h2>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Link to this heading"></a></h2>
+<p>This section covers:</p>
+<ul class="simple">
+<li><p>Techniques for uncovering patterns, trends, and relationships in the data.</p></li>
+<li><p>Statistical summaries and visualizations for understanding the data</p></li>
+</ul>
+</section>
+<section id="image-analysis">
+<h2>Image Analysis<a class="headerlink" href="#image-analysis" title="Link to this heading"></a></h2>
+<p>This section delves into:</p>
+<ul class="simple">
+<li><p>Loading and analyzing image data.</p></li>
+<li><p>Extracting basic statistics like format, size, and dimensions from images.</p></li>
+<li><p>Visualizing image data.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p><strong>The most important thing</strong> after analyzing this data set is that it contains <strong>values that are impossible</strong> for the ages of men and women. In the world of biology this is impossible. We set the upper possible age limit for a human to be 122 years, the lower one to 1, according to the oldest living person.</p>
+<p>Article: <a class="reference external" href="https://en.wikipedia.or/wiki/List_of_the_verified_oldest_people">https://en.wikipedia.or/wiki/List_of_the_verified_oldest_people</a></p>
+</section>
+</section>
+<section id="ii-face-detection">
+<h1>II. Face Detection<a class="headerlink" href="#ii-face-detection" title="Link to this heading"></a></h1>
+<p>This file allows you to detect human faces in the image and predicts their age.</p>
+<p>To use this code:</p>
+<ol class="arabic simple">
+<li><p>Need to have OpenCV installed (cv2),</p></li>
+<li><p>Need to have the pre-trained Haar Cascade model for face detection (haarcascade_frontalface_default.xml),</p></li>
+<li><p>Need to have compatible age prediction model (<cite>AgePredictionModel</cite>).</p></li>
+</ol>
+<p>See available models in the project:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── main
+│   ├── backend
+│   │   ├── core
+│   │   │  ├── models
+</pre></div>
+</div>
+<p>For now (04-01-2024): ResNet-18 (Convolutional Neural Network that is 18 layers deep).</p>
+<section id="id1">
+<h2>1. Imports<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+<p>This cell imports various libraries necessary for image processing.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OpenCV</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code> for advanced image and video processing,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pillow</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> for basic image operations such as resizing and format conversion.</p></li>
+</ul>
+</section>
+<section id="function">
+<h2>2. Function<a class="headerlink" href="#function" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_faces</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+<span class="n">face_classifier</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">haarcascades</span> <span class="o">+</span> <span class="s2">&quot;haarcascade_frontalface_default.xml&quot;</span>
+<span class="p">)</span>
+
+<span class="n">faces</span> <span class="o">=</span> <span class="n">face_classifier</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span>
+    <span class="n">gray_image</span><span class="p">,</span> <span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">minSize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">face_img</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">y</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">]</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">face_img</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">))</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="p">{</span>
+    <span class="s1">&#39;faces&#39;</span><span class="p">:</span> <span class="n">faces</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This function takes an input image and performs the following steps:</p>
+<ol class="arabic simple">
+<li><p>Converts the input image to grayscale for face detection.</p></li>
+<li><p>Uses a pre-trained Haar Cascade classifier model for face detection.</p></li>
+<li><p>Detects faces in the grayscale image using the Cascade Classifier.</p></li>
+<li><p>Draws green rectangles around each detected face on the original image.</p></li>
+<li><p>Predicts the age of each detected face using the provided age prediction model and displays it on the image.</p></li>
+</ol>
+</section>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p><strong>img</strong> (numpy.ndarray): The input image on which face detection and age prediction should be performed. It should be in BGR format as per the standard convention in OpenCV.</p>
+<p><strong>model</strong> (AgePredictionModel): An instance of the age prediction model (selected AgePredictionModel) used for age prediction.</p>
+</section>
+<section id="returns">
+<h2>Returns:<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p><strong>dict</strong>: A dictionary containing the results of face detection. The ‘faces’ key contains a list of detected faces, where each element in the list is a tuple (x, y, w, h) representing the coordinates and size of a detected face.</p>
+<ul class="simple">
+<li><p><cite>x</cite> (int): The horizontal coordinate (from left to right) of the top-left corner of the bounding box around the detected face,</p></li>
+<li><p><cite>y</cite> (int): The vertical coordinate (from top to bottom) of the top-left corner of the bounding box around the detected face,</p></li>
+<li><p><cite>w</cite> (int): The width of the bounding box around the detected face,</p></li>
+<li><p><cite>h</cite> (int): The height of the bounding box around the detected face.</p></li>
+</ul>
+</section>
+<section id="project-github">
+<h2>Project GitHub<a class="headerlink" href="#project-github" title="Link to this heading"></a></h2>
+<p>You can find the source code and more information about the project on GitHub:</p>
+<p>[Human Age Detection on GitHub] (<a class="reference external" href="https://github.com/grioool/human-age-detection">https://github.com/grioool/human-age-detection</a>)</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
